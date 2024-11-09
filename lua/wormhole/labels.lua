@@ -12,7 +12,7 @@ M.active_labels = {}
 M.home_row_labels = { "h", "j", "k", "l", "a", "s", "d", "f", "g" }
 
 ---@type string[]
-M.number_labels = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+M.number_labels = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }
 
 ---@param number_of_labels integer
 ---@return string[]
@@ -22,20 +22,20 @@ function M.generate_label_strings(number_of_labels)
         labels = vim.deepcopy(M.home_row_labels)
     elseif config.options.labels_type == "numbers" then
         labels = vim.deepcopy(M.number_labels)
+    elseif #config.options.custom_labels == 0 then
+        -- if the labels_type is custom, but no custom labels are provided, we fall back to home_row
+        labels = vim.deepcopy(M.home_row_labels)
     else
         labels = vim.deepcopy(config.options.custom_labels)
     end
 
     if number_of_labels > #labels then
-        for _ = 1, number_of_labels - #labels do
-            table.insert(labels, "*")
-        end
+        util.generate_variations(labels, number_of_labels - #labels)
     end
 
     return labels
 end
 
----TODO: fine tune the position of the label window (take e.g. statusline into account)
 ---@param label string
 ---@param winnr_to_attach_to integer
 function M.open_label_win(label, winnr_to_attach_to)
@@ -46,7 +46,7 @@ function M.open_label_win(label, winnr_to_attach_to)
         win = winnr_to_attach_to,
         anchor = "NW",
         row = 1,
-        col = 1,
+        col = 2,
         width = #label_text,
         height = 1,
         style = "minimal",

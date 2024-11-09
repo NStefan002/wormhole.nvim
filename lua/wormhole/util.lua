@@ -62,4 +62,32 @@ function M.get_map_keys(map)
     return keys
 end
 
+---@param elements string[]
+---@param n integer number of variations to generate
+---@return string[]
+function M.generate_variations(elements, n)
+    local variations = {}
+    local function generate_variations_rec(prefix, len)
+        if n == 0 then
+            return
+        end
+        if len == 0 then
+            table.insert(variations, prefix)
+            n = n - 1
+            return
+        end
+        for _, element in ipairs(elements) do
+            generate_variations_rec(prefix .. element, len - 1)
+        end
+    end
+
+    local len = 2
+    while n > 0 do
+        generate_variations_rec("", len)
+        len = len + 1
+    end
+
+    return variations
+end
+
 return M
