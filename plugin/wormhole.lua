@@ -40,6 +40,6 @@ api.nvim_create_autocmd("WinClosed", {
     desc = "Remove labels when a window is closed",
 })
 
-vim.keymap.set("n", "<c-s-i>", function()
+vim.keymap.set("n", "<Plug>(WormholeLabels)", function()
     require("wormhole.labels").create_labels()
-end, { desc = "Create wormhole labels" })
+end, { noremap = true })
