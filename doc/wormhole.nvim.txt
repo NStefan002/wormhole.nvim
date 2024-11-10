@@ -64,7 +64,7 @@ CONFIGURATION                      *wormhole.nvim-wormhole.nvim-configuration*
 <
 
   -----------------------------------------------------------------------
-  Column1                            Column2
+  option                             explanation
   ---------------------------------- ------------------------------------
   labels_type                        Which characters to use for labels.
                                      Can be one of the following:
