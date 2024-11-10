@@ -24,6 +24,9 @@ SHOWCASE                                *wormhole.nvim-wormhole.nvim-showcase*
 
 REQUIREMENTS                        *wormhole.nvim-wormhole.nvim-requirements*
 
+
+https://github.com/user-attachments/assets/a36022ca-9d42-4c16-8284-63bece18a4bb
+
 - Neovim version >= 0.10.0
 
 
