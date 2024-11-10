@@ -46,7 +46,7 @@ require("wormhole").setup({
 })
 ```
 
-| Column1 | Column2 |
+| option | explanation |
 | -------------- | --------------- |
 | `labels_type` | Which characters to use for labels. Can be one of the following: `home_row`, `numbers`, `custom` |
 | `custom_labels` | Array of custom labels to use. Only used if `labels_type` is set to `custom` |
