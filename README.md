@@ -9,6 +9,8 @@ corresponding label key. Ideal for users who work with numerous splits.
 
 ## ⚡️ Requirements
 
+https://github.com/user-attachments/assets/a36022ca-9d42-4c16-8284-63bece18a4bb
+
 - Neovim version >= 0.10.0
 
 ## 📋 Installation
