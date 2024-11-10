@@ -129,7 +129,7 @@ function M.create_labels()
     end
     vim.keymap.set(
         "n",
-        "<Esc>",
+        "<Plug>(WormholeCloseLabels)",
         vim.schedule_wrap(function()
             api.nvim_win_close(dummy_winnr, true)
             api.nvim_buf_delete(dummy_bufnr, { force = true })
