@@ -14,6 +14,12 @@ M.home_row_labels = { "h", "j", "k", "l", "a", "s", "d", "f", "g" }
 ---@type string[]
 M.number_labels = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }
 
+---@type { winnr: integer, bufnr: integer }
+M.dummy_buf = {}
+
+---@type boolean
+M.closing = false
+
 ---@param number_of_labels integer
 ---@return string[]
 function M.generate_label_strings(number_of_labels)
@@ -71,7 +77,6 @@ function M.open_label_win(label, winnr_to_attach_to)
     api.nvim_buf_add_highlight(bufnr, ns_id, "WormholeLabel", 0, 0, -1)
 end
 
----@return integer winnr, integer bufnr
 function M.create_dummy_buf()
     local bufnr = api.nvim_create_buf(false, true)
     local winnr = api.nvim_open_win(bufnr, true, {
@@ -88,13 +93,29 @@ function M.create_dummy_buf()
 
     if winnr == 0 then
         util.error("Failed to open dummy window")
-        return -1, -1
+        M.dummy_buf = { winnr = -1, bufnr = -1 }
+        return
     end
 
-    return winnr, bufnr
+    M.dummy_buf = { winnr = winnr, bufnr = bufnr }
+end
+
+function M.close_dummy_buf()
+    vim.schedule(function()
+        if not api.nvim_win_is_valid(M.dummy_buf.winnr) then
+            return
+        end
+        api.nvim_win_close(M.dummy_buf.winnr, true)
+        api.nvim_buf_delete(M.dummy_buf.bufnr, { force = true })
+        M.dummy_buf = { winnr = -1, bufnr = -1 }
+    end)
 end
 
 function M.create_labels()
+    if M.closing then
+        return
+    end
+
     local win_ids = api.nvim_tabpage_list_wins(0)
     -- filter out windows that are not focusable (since we can't jump to them)
     win_ids = vim.tbl_filter(function(w)
@@ -102,9 +123,8 @@ function M.create_labels()
         return win_config.focusable
     end, win_ids)
 
-    local dummy_winnr, dummy_bufnr = M.create_dummy_buf()
-    if dummy_winnr == -1 then
-        util.error("Failed to create dummy buffer")
+    M.create_dummy_buf()
+    if api.nvim_win_is_valid(M.dummy_buf.winnr) then
         return
     end
 
@@ -120,31 +140,34 @@ function M.create_labels()
                     return
                 end
                 api.nvim_set_current_win(winnr)
-                api.nvim_win_close(dummy_winnr, true)
-                api.nvim_buf_delete(dummy_bufnr, { force = true })
+                api.nvim_win_close(M.dummy_buf.winnr, true)
+                api.nvim_buf_delete(M.dummy_buf.bufnr, { force = true })
                 M.remove_labels()
             end),
-            { silent = true, nowait = true, buffer = dummy_bufnr }
+            { silent = true, nowait = true, buffer = M.dummy_buf.bufnr }
         )
     end
-    vim.keymap.set(
-        "n",
-        "<Plug>(WormholeCloseLabels)",
-        vim.schedule_wrap(function()
-            api.nvim_win_close(dummy_winnr, true)
-            api.nvim_buf_delete(dummy_bufnr, { force = true })
-            M.remove_labels()
-        end),
-        { silent = true, nowait = true, buffer = dummy_bufnr }
-    )
 end
 
 function M.remove_labels()
-    for _, label in pairs(M.active_labels) do
-        api.nvim_win_close(label.winnr, true)
-        api.nvim_buf_delete(label.bufnr, { force = true })
+    M.closing = true
+    vim.schedule(function()
+        for _, label in pairs(M.active_labels) do
+            api.nvim_win_close(label.winnr, true)
+            api.nvim_buf_delete(label.bufnr, { force = true })
+        end
+        M.active_labels = {}
+        M.closing = false
+    end)
+end
+
+function M.toggle_labels()
+    if vim.tbl_isempty(M.active_labels) then
+        M.create_labels()
+    else
+        M.close_dummy_buf()
+        M.remove_labels()
     end
-    M.active_labels = {}
 end
 
 return M

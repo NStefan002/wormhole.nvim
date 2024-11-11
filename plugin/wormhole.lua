@@ -43,3 +43,13 @@ api.nvim_create_autocmd("WinClosed", {
 vim.keymap.set("n", "<Plug>(WormholeLabels)", function()
     require("wormhole.labels").create_labels()
 end, { noremap = true })
+
+vim.keymap.set("n", "<Plug>(WormholeCloseLabels)", function()
+    local labels = require("wormhole.labels")
+    labels.close_dummy_buf()
+    labels.remove_labels()
+end, { noremap = true })
+
+vim.keymap.set("n", "<Plug>(WormholeLabelsToggle)", function()
+    require("wormhole.labels").toggle_labels()
+end, { noremap = true })
