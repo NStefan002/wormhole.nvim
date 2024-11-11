@@ -32,7 +32,6 @@ api.nvim_create_autocmd("WinClosed", {
         --     L.active_labels[closed_winnr].label,
         --     { buffer = L.active_labels[closed_winnr].bufnr }
         -- )
-        print(L.active_labels[closed_winnr].label)
         api.nvim_win_close(L.active_labels[closed_winnr].winnr, true)
         api.nvim_buf_delete(L.active_labels[closed_winnr].bufnr, { force = true })
         L.active_labels[closed_winnr] = nil
