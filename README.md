@@ -7,7 +7,7 @@ corresponding label key. Ideal for users who work with numerous splits.
 
 ## 📺 Showcase
 
-https://github.com/user-attachments/assets/a36022ca-9d42-4c16-8284-63bece18a4bb
+<https://github.com/user-attachments/assets/a36022ca-9d42-4c16-8284-63bece18a4bb>
 
 ## ⚡️ Requirements
 
@@ -68,3 +68,8 @@ vim.keymap.set("n", "<c-s-i>", "<Plug>(WormholeLabelsToggle)", { desc = "Wormhol
 ```
 
 - Run `:checkhealth wormhole` to diagnose possible configuration problems
+
+## You may also like
+
+- [nvim-window](https://github.com/yorickpeterse/nvim-window)
+- [nvim-window-picker](https://github.com/s1n7ax/nvim-window-picker)
