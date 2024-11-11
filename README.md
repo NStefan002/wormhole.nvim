@@ -7,9 +7,9 @@ corresponding label key. Ideal for users who work with numerous splits.
 
 ## 📺 Showcase
 
-## ⚡️ Requirements
-
 https://github.com/user-attachments/assets/a36022ca-9d42-4c16-8284-63bece18a4bb
+
+## ⚡️ Requirements
 
 - Neovim version >= 0.10.0
 
@@ -59,6 +59,12 @@ require("wormhole").setup({
 ```lua
 vim.keymap.set("n", "<leader>wl", "<Plug>(WormholeLabels)", { desc = "Wormhole Labels" })
 vim.keymap.set("n", "<Esc>", "<Plug>(WormholeCloseLabels)", { desc = "Wormhole Close Labels" })
+```
+
+Or:
+
+```lua
+vim.keymap.set("n", "<c-s-i>", "<Plug>(WormholeLabelsToggle)", { desc = "Wormhole Labels Toggle" })
 ```
 
 - Run `:checkhealth wormhole` to diagnose possible configuration problems
