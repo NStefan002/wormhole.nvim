@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/NStefan002/wormhole.nvim/compare/v1.0.0...v1.1.0) (2024-11-11)
+
+
+### Features
+
+* **labels:** add toggle_labels functionality (see [#2](https://github.com/NStefan002/wormhole.nvim/issues/2)) ([be3f80f](https://github.com/NStefan002/wormhole.nvim/commit/be3f80f718b8f3cf81e634eed4698c5ef8be978a))
+
+
+### Bug Fixes
+
+* left out print statement ([997b8d0](https://github.com/NStefan002/wormhole.nvim/commit/997b8d0918b6dc1d848ee0a658750c21fd8b2f04))
+
 ## 1.0.0 (2024-11-10)
 
 
