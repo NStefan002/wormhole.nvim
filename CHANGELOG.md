@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/NStefan002/wormhole.nvim/compare/v1.1.0...v1.1.1) (2024-11-14)
+
+
+### Bug Fixes
+
+* **labels:** winnr checking (closes [#4](https://github.com/NStefan002/wormhole.nvim/issues/4)) ([e4f4804](https://github.com/NStefan002/wormhole.nvim/commit/e4f48049f2ed644c0652130d742f4469d742fadf))
+
 ## [1.1.0](https://github.com/NStefan002/wormhole.nvim/compare/v1.0.0...v1.1.0) (2024-11-11)
 
 
