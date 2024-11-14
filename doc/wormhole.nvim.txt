@@ -1,4 +1,4 @@
-*wormhole.nvim.txt*     For Neovim >= 0.10.0     Last change: 2024 November 11
+*wormhole.nvim.txt*     For Neovim >= 0.10.0     Last change: 2024 November 14
 
 ==============================================================================
 Table of Contents                            *wormhole.nvim-table-of-contents*
