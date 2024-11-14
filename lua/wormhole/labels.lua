@@ -124,7 +124,7 @@ function M.create_labels()
     end, win_ids)
 
     M.create_dummy_buf()
-    if api.nvim_win_is_valid(M.dummy_buf.winnr) then
+    if not api.nvim_win_is_valid(M.dummy_buf.winnr) then
         return
     end
 
